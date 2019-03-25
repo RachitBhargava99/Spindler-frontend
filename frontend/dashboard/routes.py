@@ -1,20 +1,16 @@
 from flask import Blueprint, render_template, url_for, flash, redirect, request, current_app, session
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import current_user, login_required
 import requests
-import geocoder
-from frontend import config
-from frontend.dashboard.forms import AddDamageTypeForm
-import json
 from PIL import Image
-import urllib
 from io import BytesIO
-from frontend.dashboard.util import sorted_search
+from frontend.dashboard.utils import sorted_search
 import asyncio
 from datetime import datetime
 
 dash = Blueprint('dash', __name__)
 
 
+# View Function - Homepage / Search Results
 @dash.route('/', methods=['GET'])
 def home():
     if (request.args.get('q') is not None):
@@ -106,12 +102,14 @@ def home():
         return render_template('index.html', searches=searches, login_info=login_info)
 
 
+# View Function - Dashboard
 @login_required
 @dash.route('/dashboard', methods=['POST', 'GET'])
 def dashboard():
     return render_template('dash.html')
 
 
+# View Function - Search History
 @login_required
 @dash.route('/search_history', methods=['GET'])
 def search_history():
@@ -123,6 +121,7 @@ def search_history():
     return render_template('search_history.html', searches=data['data'])
 
 
+# View Function - Now Streaming
 @login_required
 @dash.route('/stream', methods=['GET'])
 def streamer():
@@ -147,6 +146,7 @@ def streamer():
     return render_template('stream.html', streams=all_streams['data'], name=current_user.name)
 
 
+# View Function - Remove a Stream - id required
 @login_required
 @dash.route('/stream/remove/<int:id>', methods=['GET'])
 def remove_stream(id):
@@ -163,6 +163,7 @@ def remove_stream(id):
     return redirect(url_for('dash.streamer'))
 
 
+# View Function - Add to Favorites - id required
 @login_required
 @dash.route('/fav/add/<int:id>', methods=['GET'])
 def add_fav(id):
@@ -179,6 +180,7 @@ def add_fav(id):
     return redirect(url_for('dash.show_fav'))
 
 
+# View Function - Show All Favorites
 @login_required
 @dash.route('/fav/show', methods=['GET'])
 def show_fav():
@@ -193,6 +195,7 @@ def show_fav():
     return redirect(url_for('dash.home'))
 
 
+# View Function - Remove from Favorites - id required
 @login_required
 @dash.route('/fav/rem/<int:id>', methods=['GET'])
 def remove_fav(id):
@@ -207,33 +210,3 @@ def remove_fav(id):
     else:
         flash(data['error'], 'danger')
     return redirect(url_for('dash.show_fav'))
-
-
-@login_required
-@dash.route('/event/add', methods=['GET', 'POST'])
-def create_event():
-    request_json = request.get_json()
-    request_data = requests.post(
-        current_app.config['ENDPOINT_ROUTE'] + current_app.config['ADD_LOG_URL'],
-        json={
-            'auth_token': current_user.auth_token,
-            'gps': (request_json['lat'], request_json['lon'])
-        }
-    )
-    data = request_data.json()
-    return json.dumps(data)
-
-
-@login_required
-@dash.route('/event/acc/add', methods=['GET', 'POST'])
-def create_acc():
-    request_json = request.get_json()
-    request_data = requests.post(
-        current_app.config['ENDPOINT_ROUTE'] + current_app.config['ADD_ACC_URL'],
-        json={
-            'auth_token': current_user.auth_token,
-            'gps': request_json['gps']
-        }
-    )
-    data = request_data.json()
-    return json.dumps(data)

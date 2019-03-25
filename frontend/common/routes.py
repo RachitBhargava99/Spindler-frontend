@@ -8,7 +8,8 @@ from frontend import db
 common = Blueprint('common', __name__)
 
 
-@common.route('/register', methods = ['POST', 'GET'])
+# View Function - User Registration
+@common.route('/register', methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('dash.dashboard'))
@@ -30,7 +31,8 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@common.route('/login', methods = ['POST', 'GET'])
+# View Function - User Login
+@common.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('dash.dashboard'))
@@ -55,6 +57,7 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
+# View Function - User Logout
 @common.route('/logout', methods=['GET'])
 def logout():
     logout_user()

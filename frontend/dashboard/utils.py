@@ -1,3 +1,4 @@
+# Returns a list of four lists of images, specifying the columns each image needs to go in to
 def sorted_search(searches):
     curr_list = []
     for each in searches:
