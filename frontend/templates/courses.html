@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="static/main/img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Courses</title>
+
+    <!--
+            Google Font
+            ============================================= -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
+
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="static/main/css/linearicons.css">
+    <link rel="stylesheet" href="static/main/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/main/css/bootstrap.css">
+    <link rel="stylesheet" href="static/main/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/main/css/nice-select.css">
+    <link rel="stylesheet" href="static/main/css/animate.min.css">
+    <link rel="stylesheet" href="static/main/css/owl.carousel.css">
+    <link rel="stylesheet" href="static/main/css/main.css">
+
+    <!-- Card View -->
+    <link rel="stylesheet" href="static/card/css/style.css">
+</head>
+
+<body>
+
+<!-- Start Header Area -->
+<header id="header">
+    <div class="container">
+        <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+                <a href="/"><img src="static/main/img/logo.png" alt="" title="" style="height:40px"/></a>
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="/">Home</a></li>
+                    {% if not login_info['status'] %}
+                        <li class="menu-has-children"><a href="{{ url_for('common.login') }}">Login</a></li>
+                        <li class="menu-has-children"><a href="{{ url_for('common.register') }}">Register</a></li>
+                    {% else %}
+                        <li class="menu-has-children"><a href="">{{ login_info['name'] }}</a>
+                            <ul>
+                                <li><a href="{{ url_for('dash.dashboard') }}">Dashboard</a></li>
+                                <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </div>
+</header>
+<!-- End Header Area -->
+
+
+<!-- Start Banner Area -->
+<section class="home-banner-area relative">
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-8 col-md-12">
+                <h1 class="wow fadeIn" data-wow-duration="4s">Search for images through <br> NASA's database</h1>
+                <p class="text-white">
+                    Explore beyond your imagination!
+                </p>
+
+                <div class="input-wrap">
+                    <form action="" class="justify-content-between">
+                        <div class="d-flex">
+                            <input type="text" placeholder="Search Universe" class="form-control" name="q"
+                                   value="{{ pre_data['q'] }}" required>
+                            <button type="submit" class="btn search-btn">Search</button>
+                        </div>
+                        <br>
+                        <div id="extras">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" placeholder="Center Code" class="form-control" name="center"
+                                           value="{{ pre_data['center'] }}">
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="text" placeholder="Start Year" class="form-control" name="start-year"
+                                           value="{{ pre_data['year_start'] }}">
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="text" placeholder="End Year" class="form-control" name="end-year"
+                                           value="{{ pre_data['year_end'] }}">
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-lg-12">
+                                    <input type="text" placeholder="Location" class="form-control" name="location">
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="NASA ID" class="form-control" name="nasa-id"
+                                           value="{{ pre_data['nasa_id'] }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Photographer" class="form-control"
+                                           name="photographer"
+                                           value="{{ pre_data['photographer'|default("Not Available", true)] }}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rocket-img">
+        <img src="static/main/img/rocket.png" alt="">
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--Start Results Area -->
+<div id="results">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .header {
+            text-align: center;
+            padding: 32px;
+        }
+
+        .row {
+            display: -ms-flexbox; /* IE 10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE 10 */
+            flex-wrap: wrap;
+            padding: 0 4px;
+        }
+
+        /* Create four equal columns that sits next to each other */
+        .column {
+            -ms-flex: 25%; /* IE 10 */
+            flex: 25%;
+            padding: 0 4px;
+        }
+
+        .column img {
+            margin-top: 8px;
+            vertical-align: middle;
+        }
+    </style>
+    {% if searches|length == 0 %}
+        <h2>Sorry, nothing here, folks!</h2>
+    {% else %}
+        <div class="row">
+            <div class="column">
+                {% for i in range(0, cuts[0]) %}
+                    <div class="hvrbox" onclick="openNav_{{ i }}()">
+                        <img src="{{ searches[i]['links'][0]['href'] }}" alt="Mountains" class="hvrbox-layer_bottom"
+                             style="width:100%">
+                        <div class="hvrbox-layer_top">
+                            <div class="hvrbox-text">{{ searches[i]['data'][0]['title'] }}
+                                | {{ searches[i]['data'][0]['location']|default('Not Available', true) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="column">
+                {% for i in range(cuts[0], cuts[1]) %}
+                    <div class="hvrbox" onclick="openNav_{{ i }}()">
+                        <img src="{{ searches[i]['links'][0]['href'] }}" alt="Mountains" class="hvrbox-layer_bottom"
+                             style="width:100%">
+                        <div class="hvrbox-layer_top">
+                            <div class="hvrbox-text">{{ searches[i]['data'][0]['title'] }}
+                                | {{ searches[i]['data'][0]['location']|default('Not Available', true) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="column">
+                {% for i in range(cuts[1], cuts[2]) %}
+                    <div class="hvrbox" onclick="openNav_{{ i }}()">
+                        <img src="{{ searches[i]['links'][0]['href'] }}" alt="Mountains" class="hvrbox-layer_bottom"
+                             style="width:100%">
+                        <div class="hvrbox-layer_top">
+                            <div class="hvrbox-text">{{ searches[i]['data'][0]['title'] }}
+                                | {{ searches[i]['data'][0]['location']|default('Not Available', true) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="column">
+                {% for i in range(cuts[2], (searches|length)) %}
+                    <div class="hvrbox" onclick="openNav_{{ i }}()">
+                        <img src="{{ searches[i]['links'][0]['href'] }}" alt="Mountains" class="hvrbox-layer_bottom"
+                             style="width:100%">
+                        <div class="hvrbox-layer_top">
+                            <div class="hvrbox-text">{{ searches[i]['data'][0]['title'] }}
+                                | {{ searches[i]['data'][0]['location']|default('Not Available', true) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+<style>
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
+
+    .img__description {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(29, 106, 154, 0.72);
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+
+        /* transition effect. not necessary */
+        transition: opacity .2s, visibility .2s;
+    }
+
+    .img__wrap:hover .img__description {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .hvrbox,
+    .hvrbox * {
+        box-sizing: border-box;
+    }
+
+    .hvrbox {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .hvrbox img {
+        max-width: 100%;
+    }
+
+    .hvrbox .hvrbox-layer_bottom {
+        display: block;
+    }
+
+    .hvrbox .hvrbox-layer_top {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 15px;
+        -moz-transition: all 0.4s ease-in-out 0s;
+        -webkit-transition: all 0.4s ease-in-out 0s;
+        -ms-transition: all 0.4s ease-in-out 0s;
+        transition: all 0.4s ease-in-out 0s;
+    }
+
+    .hvrbox:hover .hvrbox-layer_top,
+    .hvrbox.active .hvrbox-layer_top {
+        opacity: 1;
+    }
+
+    .hvrbox .hvrbox-text {
+        text-align: center;
+        font-size: 18px;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .hvrbox .hvrbox-text_mobile {
+        font-size: 15px;
+        border-top: 1px solid rgb(179, 179, 179); /* for old browsers */
+        border-top: 1px solid rgba(179, 179, 179, 0.7);
+        margin-top: 5px;
+        padding-top: 2px;
+        display: none;
+    }
+
+    .hvrbox.active .hvrbox-text_mobile {
+        display: block;
+    }
+</style>
+
+<div class="pagination" style="margin: 0px auto">
+    {% if searches|length != 0 %}
+        <a>Pages:</a>
+        {% if pn > 3 %}
+            <a href="/?{{ curr_params }}page={{ pn - 3 }}">&laquo;</a>
+        {% endif %}
+        {% for i in p_list %}
+            {% if i == pn %}
+                <a href="/?{{ curr_params }}page={{ i }}" class="active">{{ i }}</a>
+            {% else %}
+                <a href="/?{{ curr_params }}page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if pn + 2 < max %}
+            <a href="/?{{ curr_params }}page={{ pn + 3 }}">&raquo;</a>
+        {% endif %}
+    {% endif %}
+</div>
+<!-- End Results Area -->
+
+{% for i in range(0, (searches|length)) %}
+
+    <div id="myNav_{{ i }}" class="overlay">
+
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav_{{ i }}()">&times;</a>
+
+        <div class="overlay-content">
+            <h3 class="mb-30" style="color: #818181">{{ searches[i]['data'][0]['title'] }}</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ searches[i]['links'][0]['href'] }}" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-9 mt-sm-20">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <em>Description</em><br>{{ searches[i]['data'][0]['description'] }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <em>Location: </em>{{ searches[i]['data'][0]['location']|default('Not Available', true) }}
+                        </div>
+                        <div class="col-lg-6">
+                            <em>NASA ID: </em>{{ searches[i]['data'][0]['nasa_id'] }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <em>Center: </em>{{ searches[i]['data'][0]['center'] }}
+                        </div>
+                        <div class="col-lg-6">
+                            <em>Photographer: </em>{{ searches[i]['data'][0]['photographer'] }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <em>Direct Link: </em><a href="{{ searches[i]['links'][0]['href'] }}">Click Here</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <em>Add To Favorites: </em>
+                            {% if not login_info['status'] %}
+                                <a href="{{ url_for('common.login') }}">Login To Enable</a>
+                            {% else %}
+                                <a href="fav/add/{{ searches[i]['res_id'] }}">Click Here</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* Open when someone clicks on the span element */
+        function openNav_{{ i }}() {
+            document.getElementById("myNav_{{ i }}").style.width = "100%";
+        }
+
+        /* Close when someone clicks on the "x" symbol inside the overlay */
+        function closeNav_{{ i }}() {
+            document.getElementById("myNav_{{ i }}").style.width = "0%";
+        }
+    </script>
+
+{% endfor %}
+
+<style>
+    /* The Overlay (background) */
+    .overlay {
+        /* Height & width depends on how you want to reveal the overlay (see JS below) */
+        height: 100%;
+        width: 0;
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        background-color: rgb(0, 0, 0); /* Black fallback color */
+        background-color: rgba(0, 0, 0, 0.9); /* Black w/opacity */
+        overflow-x: hidden; /* Disable horizontal scroll */
+        transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    }
+
+    /* Position the content inside the overlay */
+    .overlay-content {
+        position: relative;
+        top: 25%; /* 25% from the top */
+        width: 100%; /* 100% width */
+        text-align: center; /* Centered text/links */
+        margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+    }
+
+    /* The navigation links inside the overlay */
+    .overlay {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #818181;
+        display: block; /* Display block instead of inline */
+        transition: 0.3s; /* Transition effects on hover (color) */
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+    /* Position the close button (top right corner) */
+    .overlay .closebtn {
+        position: absolute;
+        top: 100px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+    @media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px
+        }
+
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    }
+</style>
+
+
+<!-- Start Footer Area -->
+<footer class="footer-area section-gap">
+    <div class="container">
+        <div class="footer-bottom row align-items-center">
+            <p class="footer-text m-0 col-lg-8 col-md-12">
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | Spindler is brought to you by Rachit Bhargava
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Area -->
+
+<!-- ####################### Start Scroll to Top Area ####################### -->
+<div id="back-top">
+    <a title="Go to Top" href="#"></a>
+</div>
+<!-- ####################### End Scroll to Top Area ####################### -->
+
+<script src="static/main/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="static/main/js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<script src="static/main/js/easing.min.js"></script>
+<script src="static/main/js/hoverIntent.js"></script>
+<script src="static/main/js/superfish.min.js"></script>
+<script src="static/main/js/jquery.ajaxchimp.min.js"></script>
+<script src="static/main/js/jquery.magnific-popup.min.js"></script>
+<script src="static/main/js/owl.carousel.min.js"></script>
+<script src="static/main/js/owl-carousel-thumb.min.js"></script>
+<script src="static/main/js/jquery.sticky.js"></script>
+<script src="static/main/js/jquery.nice-select.min.js"></script>
+<script src="static/main/js/parallax.min.js"></script>
+<script src="static/main/js/waypoints.min.js"></script>
+<script src="static/main/js/wow.min.js"></script>
+<script src="static/main/js/jquery.counterup.min.js"></script>
+<script src="static/main/js/mail-script.js"></script>
+<script src="static/main/js/main.js"></script>
+</body>
+
+</html>

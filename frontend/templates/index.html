@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="static/spindler-logo-transparent.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Courses</title>
+
+    <!--
+            Google Font
+            ============================================= -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
+
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="static/main/css/linearicons.css">
+    <link rel="stylesheet" href="static/main/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/main/css/bootstrap.css">
+    <link rel="stylesheet" href="static/main/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/main/css/nice-select.css">
+    <link rel="stylesheet" href="static/main/css/animate.min.css">
+    <link rel="stylesheet" href="static/main/css/owl.carousel.css">
+    <link rel="stylesheet" href="static/main/css/main.css">
+
+    <!-- Card View -->
+    <link rel="stylesheet" href="static/card/css/style.css">
+</head>
+
+<body>
+
+<!-- Start Header Area -->
+<header id="header">
+    <div class="container">
+        <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+                <a href="/"><img src="static/main/img/logo.png" alt="" title="" style="height:40px"/></a>
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="/">Home</a></li>
+                    {% if not login_info['status'] %}
+                        <li class="menu-has-children"><a href="{{ url_for('common.login') }}">Login</a></li>
+                        <li class="menu-has-children"><a href="{{ url_for('common.register') }}">Register</a></li>
+                    {% else %}
+                        <li class="menu-has-children"><a href="">{{ login_info['name'] }}</a>
+                            <ul>
+                                <li><a href="{{ url_for('dash.dashboard') }}">Dashboard</a></li>
+                                <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </div>
+</header>
+<!-- End Header Area -->
+
+
+<!-- Start Banner Area -->
+<section class="home-banner-area relative">
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-8 col-md-12">
+                <h1 class="wow fadeIn" data-wow-duration="4s">Search for images through <br> NASA's database</h1>
+                <p class="text-white">
+                    Explore beyond your imagination!
+                </p>
+
+                <div class="input-wrap">
+                    <form action="" class="justify-content-between">
+                        <div class="d-flex">
+                            <input type="text" placeholder="Search Universe" class="form-control" name="q"
+                                   required>
+                            <button type="submit" class="btn search-btn">Search</button>
+                            <button type="button" class="btn search-btn" onclick="showHideExtras()">Advanced</button>
+                        </div>
+                        <br>
+                        <div id="extras" style="display:none">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" placeholder="Center Code" class="form-control" name="center">
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" placeholder="Location" class="form-control" name="location">
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Keywords" class="form-control" name="keywords">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="text" placeholder="Start Year" class="form-control" name="start-year">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="text" placeholder="End Year" class="form-control" name="end-year">
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="NASA ID" class="form-control" name="nasa-id">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Photographer" class="form-control"
+                                           name="photographer">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="text-white">Top searches</h4>
+
+                <div class="courses pt-20">
+                    {% for i in range(searches[:7]|length) %}
+                        <a href="?q={{ searches[i][1] | replace(' ', '+') }}" data-wow-duration="1s"
+                           data-wow-delay="{{ (i + 1) * 0.3 }}s"
+                           class="primary-btn transparent mr-10 mb-10 wow fadeInDown">{{ searches[i][1] }}</a>
+                    {% endfor %}
+                    {% if searches|length < 7 %}
+                        {% for i in range(7 - searches|length) %}
+                            <a href="#" data-wow-duration="1s" data-wow-delay="{{ (searches|length + i + 1) * 0.3 }}s"
+                               class="primary-btn transparent mr-10 mb-10 wow fadeInDown">Spindler</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rocket-img">
+        <img src="static/main/img/rocket.png" alt="">
+    </div>
+</section>
+
+<script>
+    function showHideExtras() {
+        var x = document.getElementById('extras');
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+<!-- End Banner Area -->
+
+
+<!-- Start Footer Area -->
+<footer class="footer-area section-gap">
+    <div class="container">
+        <div class="footer-bottom row align-items-center">
+            <p class="footer-text m-0 col-lg-8 col-md-12">
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | Spindler is brought to you by Rachit Bhargava
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Area -->
+
+<!-- ####################### Start Scroll to Top Area ####################### -->
+<div id="back-top">
+    <a title="Go to Top" href="#"></a>
+</div>
+<!-- ####################### End Scroll to Top Area ####################### -->
+
+<script src="static/main/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="static/main/js/vendor/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<script src="static/main/js/easing.min.js"></script>
+<script src="static/main/js/hoverIntent.js"></script>
+<script src="static/main/js/superfish.min.js"></script>
+<script src="static/main/js/jquery.ajaxchimp.min.js"></script>
+<script src="static/main/js/jquery.magnific-popup.min.js"></script>
+<script src="static/main/js/owl.carousel.min.js"></script>
+<script src="static/main/js/owl-carousel-thumb.min.js"></script>
+<script src="static/main/js/jquery.sticky.js"></script>
+<script src="static/main/js/jquery.nice-select.min.js"></script>
+<script src="static/main/js/parallax.min.js"></script>
+<script src="static/main/js/waypoints.min.js"></script>
+<script src="static/main/js/wow.min.js"></script>
+<script src="static/main/js/jquery.counterup.min.js"></script>
+<script src="static/main/js/mail-script.js"></script>
+<script src="static/main/js/main.js"></script>
+</body>
+
+</html>

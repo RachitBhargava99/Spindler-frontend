@@ -1,0 +1,529 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dashboard V.1 | Kiaalap - Kiaalap Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="static/spindler-logo-transparent.png">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/owl.carousel.css">
+    <link rel="stylesheet" href="static/dash/css/owl.theme.css">
+    <link rel="stylesheet" href="static/dash/css/owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/main.css">
+    <!-- educate icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/educate-custon-icon.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="static/dash/css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="static/dash/css/calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="static/dash/css/responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="static/dash/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+<!-- Start Left menu area -->
+<div class="left-sidebar-pro">
+    <nav id="sidebar" class="">
+        <div class="sidebar-header">
+            <a href="/"><img class="main-logo" src="static/dash/img/logo/logo.png" alt="" style="height:60px"/></a>
+            <strong><a href="/"><img src="static/spindler-logo-transparent.png" alt=""/></a></strong>
+        </div>
+        <div class="left-custom-menu-adp-wrap comment-scrollbar">
+            <nav class="sidebar-nav left-sidebar-menu-pro">
+                <ul class="metismenu" id="menu1">
+                    <li>
+                        <a title="Landing Page" href="../../search_history" aria-expanded="false"><span
+                                class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span>
+                            <span class="mini-click-non">Past Search History</span></a>
+                    </li>
+                    <li>
+                        <a href="../../fav/show" aria-expanded="false"><span
+                                class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">My Favorites</span></a>
+                    </li>
+                    <li>
+                        <a href="../../stream" aria-expanded="false"><span
+                                class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Now Streaming</span></a>
+                    </li>
+                    <li>
+                        <a href="../../logout" aria-expanded="false"><span
+                                class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Logout</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+<!-- End Left menu area -->
+<!-- Start Welcome area -->
+<div class="all-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="logo-pro">
+                    <a href="/"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-advance-area">
+        <div class="header-top-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header-top-wraper">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                    <div class="menu-switcher-pro">
+                                        <button type="button" id="sidebarCollapse"
+                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                            <i class="educate-icon educate-nav"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                    <div class="header-top-menu tabl-d-n">
+                                        <ul class="nav navbar-nav mai-top-nav">
+                                            <li class="nav-item"><a href="{{ url_for('dash.home') }}" class="nav-link">Home</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    <div class="header-right-info">
+                                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                            <li class="nav-item">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                   class="nav-link dropdown-toggle">
+                                                    <img src="img/product/pro4.jpg" alt=""/>
+                                                    <span class="admin-name">{{ name }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav">
+                                    <li><a data-toggle="collapse" data-target="#Charts" href="#">Home <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul class="collapse dropdown-header-top">
+                                            <li><a href="/">Dashboard v.1</a></li>
+                                            <li><a href="index-1.html">Dashboard v.2</a></li>
+                                            <li><a href="index-3.html">Dashboard v.3</a></li>
+                                            <li><a href="analytics.html">Analytics</a></li>
+                                            <li><a href="widgets.html">Widgets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="events.html">Event</a></li>
+                                    <li><a data-toggle="collapse" data-target="#demoevent" href="#">Professors <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="demoevent" class="collapse dropdown-header-top">
+                                            <li><a href="all-professors.html">All Professors</a>
+                                            </li>
+                                            <li><a href="add-professor.html">Add Professor</a>
+                                            </li>
+                                            <li><a href="edit-professor.html">Edit Professor</a>
+                                            </li>
+                                            <li><a href="professor-profile.html">Professor Profile</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demopro" href="#">Students <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="demopro" class="collapse dropdown-header-top">
+                                            <li><a href="all-students.html">All Students</a>
+                                            </li>
+                                            <li><a href="add-student.html">Add Student</a>
+                                            </li>
+                                            <li><a href="edit-student.html">Edit Student</a>
+                                            </li>
+                                            <li><a href="student-profile.html">Student Profile</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#democrou" href="#">Courses <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="democrou" class="collapse dropdown-header-top">
+                                            <li><a href="all-courses.html">All Courses</a>
+                                            </li>
+                                            <li><a href="add-course.html">Add Course</a>
+                                            </li>
+                                            <li><a href="edit-course.html">Edit Course</a>
+                                            </li>
+                                            <li><a href="course-profile.html">Courses Info</a>
+                                            </li>
+                                            <li><a href="course-payment.html">Courses Payment</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demolibra" href="#">Library <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="demolibra" class="collapse dropdown-header-top">
+                                            <li><a href="library-assets.html">Library Assets</a>
+                                            </li>
+                                            <li><a href="add-library-assets.html">Add Library Asset</a>
+                                            </li>
+                                            <li><a href="edit-library-assets.html">Edit Library Asset</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demodepart" href="#">Departments <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="demodepart" class="collapse dropdown-header-top">
+                                            <li><a href="departments.html">Departments List</a>
+                                            </li>
+                                            <li><a href="add-department.html">Add Departments</a>
+                                            </li>
+                                            <li><a href="edit-department.html">Edit Departments</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demomi" href="#">Mailbox <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="demomi" class="collapse dropdown-header-top">
+                                            <li><a href="mailbox.html">Inbox</a>
+                                            </li>
+                                            <li><a href="mailbox-view.html">View Mail</a>
+                                            </li>
+                                            <li><a href="mailbox-compose.html">Compose Mail</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface
+                                        <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
+                                            <li><a href="google-map.html">Google Map</a>
+                                            </li>
+                                            <li><a href="data-maps.html">Data Maps</a>
+                                            </li>
+                                            <li><a href="pdf-viewer.html">Pdf Viewer</a>
+                                            </li>
+                                            <li><a href="x-editable.html">X-Editable</a>
+                                            </li>
+                                            <li><a href="code-editor.html">Code Editor</a>
+                                            </li>
+                                            <li><a href="tree-view.html">Tree View</a>
+                                            </li>
+                                            <li><a href="preloader.html">Preloader</a>
+                                            </li>
+                                            <li><a href="images-cropper.html">Images Cropper</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                            <li><a href="bar-charts.html">Bar Charts</a>
+                                            </li>
+                                            <li><a href="line-charts.html">Line Charts</a>
+                                            </li>
+                                            <li><a href="area-charts.html">Area Charts</a>
+                                            </li>
+                                            <li><a href="rounded-chart.html">Rounded Charts</a>
+                                            </li>
+                                            <li><a href="c3.html">C3 Charts</a>
+                                            </li>
+                                            <li><a href="sparkline.html">Sparkline Charts</a>
+                                            </li>
+                                            <li><a href="peity.html">Peity Charts</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="Tablesmob" class="collapse dropdown-header-top">
+                                            <li><a href="static-table.html">Static Table</a>
+                                            </li>
+                                            <li><a href="data-table.html">Data Table</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="formsmob" class="collapse dropdown-header-top">
+                                            <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li><a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li><a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li><a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li><a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="Appviewsmob" class="collapse dropdown-header-top">
+                                            <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                            </li>
+                                            <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                            </li>
+                                            <li><a href="password-meter.html">Password Meter</a>
+                                            </li>
+                                            <li><a href="multi-upload.html">Multi Upload</a>
+                                            </li>
+                                            <li><a href="tinymc.html">Text Editor</a>
+                                            </li>
+                                            <li><a href="dual-list-box.html">Dual List Box</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span
+                                            class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <ul id="Pagemob" class="collapse dropdown-header-top">
+                                            <li><a href="login.html">Login</a>
+                                            </li>
+                                            <li><a href="register.html">Register</a>
+                                            </li>
+                                            <li><a href="lock.html">Lock</a>
+                                            </li>
+                                            <li><a href="password-recovery.html">Password Recovery</a>
+                                            </li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="500.html">500 Page</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
+        <div class="breadcome-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list">
+                            <div class="row">
+                                <div class="input-wrap">
+                                    <h3>Add to stream</h3>
+                                    <form action="" class="justify-content-between">
+                                        <div class="d-flex">
+                                            <input type="text" placeholder="Search Universe" class="form-control"
+                                                   name="q"
+                                                   required>
+                                            <button type="submit" class="btn search-btn">Start Streaming</button>
+                                            <button type="button" class="btn search-btn" onclick="showHideExtras()">
+                                                Advanced
+                                            </button>
+                                        </div>
+                                        <br>
+                                        <div id="extras" style="display:none">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <input type="text" placeholder="Center Code" class="form-control"
+                                                           name="center">
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="text" placeholder="Location" class="form-control"
+                                                           name="location">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class='alert alert-{{ category }}'>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="courses-area">
+        <div class="container-fluid">
+            <div class="row">
+                {% if streams|length != 0 %}
+                    {% for stream in streams %}
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:20px">
+                            <div class="courses-inner res-mg-b-30">
+                                <div class="courses-title">
+                                    <h2>{{ stream['q']|upper }}</h2>
+                                </div>
+                                <div class="course-des">
+                                    <p><span><i class="fa fa-clock"></i></span>
+                                        <b>Center: </b>{{ stream['center']|default('No Preference', true) }}</p>
+                                    <p><span><i class="fa fa-clock"></i></span>
+                                        <b>Location: </b>{{ stream['location']|default('No Preference', true) }}
+                                    </p>
+                                </div>
+                                <div class="product-buttons">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <a href="/?q={{ stream['q']|replace(' ', '+') }}">
+                                                <button type="button" class="button-default cart-btn">Search Now
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <a href="/stream/remove/{{ stream['id'] }}">
+                                                <button type="button" class="button-default cart-btn">Stop Streaming
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3>No Streams Currently Active!</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p class="footer-text m-0 col-lg-8 col-md-12">
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | Spindler is brought to you by Rachit Bhargava
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jquery
+    ============================================ -->
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap JS
+    ============================================ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- wow JS
+    ============================================ -->
+<script src="js/wow.min.js"></script>
+<!-- price-slider JS
+    ============================================ -->
+<script src="js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
+    ============================================ -->
+<script src="js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
+    ============================================ -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- sticky JS
+    ============================================ -->
+<script src="js/jquery.sticky.js"></script>
+<!-- scrollUp JS
+    ============================================ -->
+<script src="js/jquery.scrollUp.min.js"></script>
+<!-- mCustomScrollbar JS
+    ============================================ -->
+<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
+    ============================================ -->
+<script src="js/metisMenu/metisMenu.min.js"></script>
+<script src="js/metisMenu/metisMenu-active.js"></script>
+<!-- morrisjs JS
+    ============================================ -->
+<script src="js/sparkline/jquery.sparkline.min.js"></script>
+<script src="js/sparkline/jquery.charts-sparkline.js"></script>
+<script src="js/sparkline/sparkline-active.js"></script>
+<!-- calendar JS
+    ============================================ -->
+<script src="js/calendar/moment.min.js"></script>
+<script src="js/calendar/fullcalendar.min.js"></script>
+<script src="js/calendar/fullcalendar-active.js"></script>
+<!-- plugins JS
+    ============================================ -->
+<script src="js/plugins.js"></script>
+<!-- main JS
+    ============================================ -->
+<script src="js/main.js"></script>
+<!-- tawk chat JS
+    ============================================ -->
+<script src="js/tawk-chat.js"></script>
+
+<script>
+    function showHideExtras() {
+        var x = document.getElementById('extras');
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+
+</html>
